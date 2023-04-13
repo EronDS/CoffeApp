@@ -15,4 +15,4 @@ For refering to customized yolov functions (specifically), please refer to the f
 ## Important notebooks
 
 To refer to k-means creation of cluster (unsupervised classes, semi-supervised method) and output from semi-supervised methods, please refer to notebooks/coffeScale.ipynb, notebokos/yolov7+kmeans_detection_... ; 
-Outputs from yolo models can be found at notebooks/coffeAI-detector.ipynb;
+Outputs from general yolo models can be found at notebooks/coffeAI-detector.ipynb;
