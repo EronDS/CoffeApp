@@ -8,11 +8,8 @@
 4. **split_data**: Splits the input folder into training and validation sets. The percentage of data to use for training is set by the split_percentage argument (default is 0.8).
 5. **count_imgs_labels**: Counts the number of images and label files in the training and validation sets.
 
-## Yolo customized functions
-
-For refering to customized yolov functions (specifically), please refer to the folder "yolo_custom_fn".
 
 ## Important notebooks
 
-To refer to k-means creation of cluster (unsupervised classes, semi-supervised method) and output from semi-supervised methods, please refer to notebooks/coffeScale.ipynb, notebokos/yolov7+kmeans_detection_... ; 
+To refer to k-means creation of cluster (unsupervised classes, semi-supervised method) and output from semi-supervised methods, please refer to notebooks/coffeScale.ipynb, notebooks/yolov7+kmeans_detection_... ; 
 Outputs from general yolo models can be found at notebooks/coffeAI-detector.ipynb;
