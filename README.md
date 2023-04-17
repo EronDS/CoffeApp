@@ -8,7 +8,7 @@
 3. **classes_to_mono**: Similar to classes_to_binary, but converts the class labels to monochrome format (i.e., 0 for all classes, coffe fruits).
 4. **split_data**: Splits the input folder into training and validation sets. The percentage of data to use for training is set by the split_percentage argument (default is 0.8);
 5. **count_imgs_labels**: Counts the number of images and label files in the training and validation sets;
-6. **unsupervised_annotation**: Create a semi-supervised (supervised locations and unsupervised classes, hence semi-supervised) annotion in yolo-format, where bounding boxes are human annoated (original dataset) and classes from k-means clusters (unsupervised classes);
+6. **unsupervised_annotation**: Create a semi-supervised (supervised locations and unsupervised classes, hence semi-supervised) annotation in yolo-format, where bounding boxes are human annoated (original dataset) and classes from k-means clusters (unsupervised classes);
 
 
 ## Important notebooks
