@@ -1,7 +1,7 @@
 # Implemented functions throughout the research paper Computer Vision-Aided Intelligent Monitoring of Coffee: Towards Sustainable Coffee Production (ERON, et al.), and back-end functions to CoffeApp mobile application
 
 
-## Important custom functions implemented throghout the research
+## Important custom functions implemented throughout the research
 
 1. **classes_to_binary**: Takes the input folder from_folder, converts the class labels from multiclass (5 classes: green, green-yellow, cherry, raisin and dry) to binary (ripe and unripe) format using the mapping in the map dictionary, and saves the converted labels in the output folder to_folder;
 2. **count_objects**: Counts the number of objects (coffe fruits) in the training and validation sets by iterating through the label files and counting the number of lines;
