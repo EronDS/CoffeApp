@@ -18,7 +18,7 @@ Outputs from general yolo models can be found at notebooks/coffeAI-detector.ipyn
 
 ## Runs and Custom Yolov7 Functions
 
-You can find the results of each of the selected models (YOLOv7, semi-supervised and supervised) in the runs/ folder. There you can see different metrics and batches for visualization. We do not share the weights because they have commercial value. We also provide custom functions based on the original YOLOv7 repository (https://github.com/WongKinYiu/yolov7).
+You can find the results of each of the selected models (YOLOv7, semi-supervised and supervised) in the runs/ folder. There you can see different metrics and batches for visualization. We do not share the weights because they have commercial value. We also provide custom functions based on the original YOLOv7 repository (https://github.com/WongKinYiu/yolov7) in yolov7_custom_fn folder.
 
 ## Data and Model Availabity
 
