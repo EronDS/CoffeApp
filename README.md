@@ -1,4 +1,5 @@
-# Coffeapp 
+# Implemented functions throughout the research paper Computer Vision-Aided Intelligent Monitoring of Coffee: Towards Sustainable Coffee Production (ERON, et al.), and back-end functions to CoffeApp mobile application
+
 
 ## Important custom functions implemented throghout the research
 
