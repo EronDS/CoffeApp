@@ -2,11 +2,12 @@
 
 ## Important custom functions implemented throghout the research
 
-1. **classes_to_binary**: Takes the input folder from_folder, converts the class labels from multiclass (5 classes: green, green-yellow, cherry, raisin and dry) to binary (ripe and unripe) format using the mapping in the map dictionary, and saves the converted labels in the output folder to_folder.
-2. **count_objects**: Counts the number of objects (coffe fruits) in the training and validation sets by iterating through the label files and counting the number of lines.
+1. **classes_to_binary**: Takes the input folder from_folder, converts the class labels from multiclass (5 classes: green, green-yellow, cherry, raisin and dry) to binary (ripe and unripe) format using the mapping in the map dictionary, and saves the converted labels in the output folder to_folder;
+2. **count_objects**: Counts the number of objects (coffe fruits) in the training and validation sets by iterating through the label files and counting the number of lines;
 3. **classes_to_mono**: Similar to classes_to_binary, but converts the class labels to monochrome format (i.e., 0 for all classes, coffe fruits).
-4. **split_data**: Splits the input folder into training and validation sets. The percentage of data to use for training is set by the split_percentage argument (default is 0.8).
-5. **count_imgs_labels**: Counts the number of images and label files in the training and validation sets.
+4. **split_data**: Splits the input folder into training and validation sets. The percentage of data to use for training is set by the split_percentage argument (default is 0.8);
+5. **count_imgs_labels**: Counts the number of images and label files in the training and validation sets;
+6. **unsupervised_annotation**: Create a semi-supervised (supervised locations and unsupervised classes, hence semi-supervised) annotion in yolo-format, where bounding boxes are human annoated (original dataset) and classes from k-means clusters (unsupervised classes);
 
 
 ## Important notebooks
