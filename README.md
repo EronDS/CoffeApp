@@ -22,4 +22,4 @@ You can find the results of each of the selected models (YOLOv7, semi-supervised
 
 ## Data and Model Availabity
 
-Our models and data have commercial value, so we do not fully make them publicly available (weights of the trained model, for example). If you are interested in using them, please contact the corresponding author of our paper if you want to use them.
+Our models and data have commercial value, so we do not fully make them publicly available (weights of the trained model, for example). If you are interested in using them, please contact the corresponding author of our paper.
