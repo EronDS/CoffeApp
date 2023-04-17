@@ -131,21 +131,107 @@ def yolo_format_to_yolov6(folder:str) -> None:
     os.makedirs(lbls_train_folder,exist_ok=True)
     os.makedirs(lbls_val_folder,exist_ok=True)
 
-    # Cópia das imagens de treinamento
+    # Training images
     for filename in tqdm(os.listdir(folder+'/train/images'), desc='Cópia de imagens de treinamento'):
         shutil.copy(os.path.join(folder, 'train/images', filename), imgs_train_folder)
 
-    # Cópia das imagens de validação
+    # Validation images
     for filename in tqdm(os.listdir(folder+'/val/images'), desc='Cópia de imagens de validação'):
         shutil.copy(os.path.join(folder, 'val/images', filename), imgs_val_folder)
 
-    # Cópia dos arquivos de labels de treinamento
+    # Training labels
     for filename in tqdm(os.listdir(folder+'/train/labels'), desc='Cópia de arquivos de labels de treinamento'):
         if filename.endswith('.txt'):
             shutil.copy(os.path.join(folder, 'train/labels', filename), lbls_train_folder)
 
-    # Cópia dos arquivos de labels de validação
+    # Validation labels
     for filename in tqdm(os.listdir(folder+'/val/labels'), desc='Cópia de arquivos de labels de validação'):
         if filename.endswith('.txt'):
             shutil.copy(os.path.join(folder, 'val/labels', filename), lbls_val_folder)
+            
 
+def unsupervised_annotation(_model,folder,k):
+    '''
+    create semi-supervised annotation in yolo_format,
+    bouding_box location coming from supervised annotation, 
+    classification coming from _model (kmeans)
+    '''
+    label_folder = folder + '/labels/'
+    os.makedirs(folder + '/unsupervised_{}_label'.format(k), exist_ok=True)
+    new_label_folder = folder + '/unsupervised_{}_label'.format(k)
+    img_folder = folder + '/images/'
+
+    for img_file in os.listdir(img_folder):
+        name, extension = os.path.splitext(img_file)
+        text_file = os.path.join(label_folder, name + '.txt')
+        new_text_file = os.path.join(new_label_folder, name + '.txt')
+        img_path = os.path.join(img_folder, img_file) 
+
+        # Load the image
+        img = cv2.imread(img_path)
+
+        # Read the label file
+        with open(text_file, 'r') as f:
+            lines = f.readlines()
+
+        # Extract the bounding box coordinates and labels for each object
+        objects = []
+        for line in lines:
+            # Convert the label line to a list of values
+            label_list = line.strip().split(' ')
+
+            # Extract the bounding box coordinates
+            x_center = float(label_list[1])
+            y_center = float(label_list[2])
+            width = float(label_list[3])
+            height = float(label_list[4])
+
+            # Calculate the top-left and bottom-right coordinates of the bounding box
+            x_top_left = int((x_center - (width / 2)) * img.shape[1])
+            y_top_left = int((y_center - (height / 2)) * img.shape[0])
+            x_bottom_right = int((x_center + (width / 2)) * img.shape[1])
+            y_bottom_right = int((y_center + (height / 2)) * img.shape[0])
+
+            # Crop the region corresponding to the bounding box and resize to 28x28x3
+            object_img = img[y_top_left:y_bottom_right, x_top_left:x_bottom_right]
+            
+            if object_img.size == 0:
+                continue  # skip empty image
+            try:
+                object_img = cv2.resize(object_img, (28,28))
+            except cv2.error as e:
+                print(f"Error: {e}")
+                continue  # skip invalid image
+            
+
+            cv2_imshow(object_img)
+            object_img_rgb = cv2.cvtColor(object_img, cv2.COLOR_BGR2RGB)
+            object_img_lab = cv2.cvtColor(object_img_rgb, cv2.COLOR_RGB2LAB)
+            img_ab = object_img_lab[:, :, 1:]  # extract a,b channels from LAB image
+            img_ab_vect = np.reshape(img_ab, (28*28*2))  # vectorize a,b channels
+            img_ab_vect = img_ab_vect.astype('float32')  # convert to float32
+            img_ab_vect /= 255.0  # normalize to [0, 1]
+            img_ab_vect = np.array(img_ab_vect)
+
+            # Add the object and its label to the list
+            label = int(label_list[0])
+            objects.append((img_ab_vect.reshape(1,-1), label, x_top_left, y_top_left, x_bottom_right, y_bottom_right))
+
+        # Make predictions for the objects using the given model
+        predictions = [] 
+        for obj in objects:
+            vec = obj[0]
+            vec = np.array(vec)
+            prediction = _model.predict(vec)
+            predictions.append(prediction)
+
+
+        # Write the predicted labels to the label file
+        with open(new_text_file, 'w') as f:
+            for i, obj in enumerate(objects):
+                label = predictions[i]
+                x_center = ((obj[2] + obj[4]) / 2) / img.shape[1]
+                y_center = ((obj[3] + obj[5]) / 2) / img.shape[0]
+                width = (obj[4] - obj[2]) / img.shape[1]
+                height = (obj[5] - obj[3]) / img.shape[0]
+                f.write(f"{label} {x_center} {y_center} {width} {height}\n")
