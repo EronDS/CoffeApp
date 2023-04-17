@@ -15,3 +15,11 @@
 
 To refer to k-means creation of cluster (unsupervised classes, semi-supervised method) and output from semi-supervised methods, please refer to notebooks/coffeScale.ipynb, notebooks/yolov7+kmeans_detection_... ; 
 Outputs from general yolo models can be found at notebooks/coffeAI-detector.ipynb;
+
+## Runs and Custom Yolov7 Functions
+
+You can find the results of each of the selected models (YOLOv7, semi-supervised and supervised) in the runs/ folder. There you can see different metrics and batches for visualization. We do not share the weights because they have commercial value. We also provide custom functions based on the original YOLOv7 repository (https://github.com/WongKinYiu/yolov7).
+
+## Data and Model Availabity
+
+Our models and data have commercial value, so we do not fully make them publicly available (weights of the trained model, for example). If you are interested in using them, please contact the corresponding author of our paper.
